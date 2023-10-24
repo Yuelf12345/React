@@ -3,11 +3,11 @@ import { Routes, Route, Navigate, NavLink } from 'react-router-dom'
 import Message from './Message'
 import News from './News'
 
-export default class Home extends PureComponent {
+export default class Router extends PureComponent {
   render() {
     return (
           <div>
-      <h2>Home组件内容</h2>
+      <h2>Router</h2>
       <div>
         <ul className="nav nav-tabs">
           <li>
@@ -17,7 +17,7 @@ export default class Home extends PureComponent {
             <NavLink className="list-group-item" to='news'>News</NavLink>
           </li>
           <li>
-            <NavLink className="list-group-item" to='/home/message'>Message</NavLink>
+            <NavLink className="list-group-item" to='/router/message'>Message</NavLink>
           </li>
         </ul>
         {/* 指定组件呈现的位置 */}

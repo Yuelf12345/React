@@ -1,20 +1,21 @@
 import React from 'react';
 import logo from './logo.svg';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
-import Home from './components/Home';
-import About from './components/About';
 import './App.css';
+
+import Router from './components/Router';
+import Redux from './components/Redux';
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <div className="App">
-          <Link to="/home">首页</Link><br />
-          <Link to="/about">关于</Link>
+          <Link to="/router">Router</Link><br />
+          <Link to="/Redux">Redux</Link>
           <Routes>
-            <Route path='/home/*' element={<Home />}></Route>
-            <Route path='/about' element={<About />}></Route>
+            <Route path='/router/*' element={<Router />}></Route>
+            <Route path='/Redux' element={<Redux />}></Route>
           </Routes>
         </div>
       </BrowserRouter>
