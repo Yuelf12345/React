@@ -23,7 +23,7 @@ export default class Home extends PureComponent {
         {/* 指定组件呈现的位置 */}
         <Routes>
           <Route path='news' element={<News></News>}></Route>
-          <Route path='message' element={<Message></Message>}></Route>
+          <Route path='message/*' element={<Message></Message>}></Route>
           {/* <Route path='*' element={<Navigate to={'news'} replace></Navigate>}></Route> */}
         </Routes>
       </div>
