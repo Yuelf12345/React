@@ -6,6 +6,8 @@ const Redux = () => {
   const { count } = useSelector((state: any) => state.user)
   
   const dispatch = useDispatch()
+  console.log(dispatch);
+  
   const addValue =()=>{
     dispatch(add({value:4}))
   }
