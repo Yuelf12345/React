@@ -35,6 +35,7 @@ function BeforRouterEnter() {
 }
 
 function App() {
+  const token = localStorage.removeItem('token')
   return (
     <div className="App">
       {/* {outlet} */}
