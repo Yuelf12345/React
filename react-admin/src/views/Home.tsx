@@ -24,7 +24,7 @@ const Home: React.FC = () => {
             <Breadcrumb.Item>User</Breadcrumb.Item>
             <Breadcrumb.Item>Bill</Breadcrumb.Item>
           </Breadcrumb>
-          <div style={{ padding: 24, minHeight: 360, background: colorBgContainer }}>
+          <div style={{ padding: 10, minHeight: 560, background: colorBgContainer}}>
             <Outlet />
           </div>
         </Content>
