@@ -1,6 +1,6 @@
 import {
     createSlice,//创建切片
-    createAsyncThunk,//创建一个一步的Action 有三个状态  pending（等待） fulfilled(成功) rejected（失败）
+
 } from '@reduxjs/toolkit'
 export const user = createSlice({
     name:'user', //每个切片的名字
