@@ -1,5 +1,22 @@
 $white: #fff;
 
+:root {
+  --primary-light: #8abdff;
+  --primary: #6d5dfc;
+  --primary-dark: #5b0eeb;
+
+  --white: #FFFFFF;
+  --greyLight-1: #E4EBF5;
+  --greyLight-2: #c8d0e7;
+  --greyLight-3: #bec8e4;
+  --greyDark: #9baacf;
+}
+
+$shadow: .3rem .3rem .6rem var(--greyLight-2),
+  -.2rem -.2rem .5rem var(--white);
+$inner-shadow: inset .2rem .2rem .5rem var(--greyLight-2),
+  inset -.2rem -.2rem .5rem var(--white);
+
 .content {
   width: 100%;
   height: 100%;
@@ -31,6 +48,7 @@ $white: #fff;
   backdrop-filter: blur(40px);
   border-radius: 30px;
   position: relative;
+  // overflow-y: auto;
 }
 
 .card::before,
@@ -67,6 +85,192 @@ $white: #fff;
 .leftSide {
   transform: rotateY(45deg) translateX(-1000px);
   animation: animate-left 1s forwards;
+
+  .clock {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+    width: 6rem;
+    height: 6rem;
+    justify-self: center;
+    box-shadow: $shadow;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    .hand {
+      position: absolute;
+      transform-origin: bottom;
+      bottom: 3rem;
+      border-radius: .1rem;
+      z-index: 200;
+    }
+
+    .hours {
+      width: .2rem;
+      height: 1.6rem;
+      background: var(--greyLight-3);
+    }
+
+    .minutes {
+      width: .2rem;
+      height: 2.3rem;
+      background: var(--greyDark);
+    }
+
+    .seconds {
+      width: .1rem;
+      height: 2.6rem;
+      background: var(--primary);
+    }
+
+    .point {
+      position: absolute;
+      width: .4rem;
+      height: .4rem;
+      border-radius: 50%;
+      background: var(--primary);
+      z-index: 300;
+    }
+
+    .marker {
+      width: 95%;
+      height: 95%;
+      border-radius: 50%;
+      position: relative;
+      box-shadow: $inner-shadow;
+
+      &::after {
+        content: '';
+        width: 60%;
+        height: 60%;
+        position: absolute;
+        box-shadow: inset 1px 1px 1px var(--greyLight-2),
+          inset -1px -1px 1px var(--white);
+        border-radius: 50%;
+        top: 20%;
+        left: 20%;
+        filter: blur(1px);
+      }
+
+      &__1,
+      &__2,
+      &__3,
+      &__4 {
+        position: absolute;
+        border-radius: .1rem;
+        box-shadow: inset 1px 1px 1px var(--greyLight-2),
+          inset -1px -1px 1px var(--white);
+      }
+
+      &__1,
+      &__2 {
+        width: .1rem;
+        height: .3rem;
+        left: 2.8rem;
+      }
+
+      &__3,
+      &__4 {
+        width: .3rem;
+        height: .1rem;
+        top: 2.8rem;
+      }
+
+      &__1 {
+        top: 2%;
+      }
+
+      &__2 {
+        top: 98%;
+        transform: translateY(-.3rem);
+      }
+
+      &__3 {
+        left: 2%;
+      }
+
+      &__4 {
+        left: 98%;
+        transform: translateX(-.3rem);
+      }
+    }
+  }
+
+  .slider {
+    width: 100px;
+    grid-column: 3 / 4;
+    grid-row: 5 / 6;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+
+    &__box {
+      width: 100%;
+      height: 0.5rem;
+      cursor: pointer;
+      box-shadow: $inner-shadow;
+      border-radius: 1rem;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &__btn {
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      background: var(--white);
+      position: absolute;
+      box-shadow: 0px .1rem .3rem 0px var(--greyLight-3);
+      z-index: 200;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover~.slider__tooltip {
+        opacity: 1;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        width: .4rem;
+        height: .4rem;
+        border-radius: 50%;
+        box-shadow: $inner-shadow;
+      }
+    }
+
+    &__color {
+      height: 100%;
+      width: 50%;
+      position: absolute;
+      left: 0;
+      z-index: 100;
+      border-radius: inherit;
+      background: var(--primary);
+      background: linear-gradient(-1deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+    }
+
+    &__tooltip {
+      position: absolute;
+      top: 1.3rem;
+      height: 1.2rem;
+      width: 1.5rem;
+      border-radius: .3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.6rem;
+      color: var(--primary);
+      box-shadow: $shadow;
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+  }
 }
 
 .rightSide {
@@ -74,12 +278,13 @@ $white: #fff;
   animation: animate-right 1s forwards;
 
   .member {
+    height: 50px;
     position: relative;
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
     gap: 16px;
-    min-height: 40px;
+    min-height: 100px;
     padding: 16px;
     background-color: $white;
     border-radius: 24px;
