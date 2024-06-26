@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import {
   MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  HomeOutlined,
-  FileOutlined,
-  FrownOutlined,
-  LinkedinOutlined,
+  MenuUnfoldOutlined
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
 import router from "../router"; // 引入路由配置
@@ -25,13 +21,9 @@ function renderNestedRoutes(routes: RouteItem[]): JSX.Element[] {
     const routeElement = (
       <Route key={route.path} path={route.path} element={route.element} />
     );
-
-    // 如果当前路由有子路由，则递归处理子路由并连接当前路由元素
     if (route.children) {
       return [routeElement, ...renderNestedRoutes(route.children)];
     }
-
-    // 如果没有子路由，仅返回当前路由元素
     return [routeElement];
   });
 }
@@ -76,7 +68,7 @@ const App: React.FC = () => {
           mode="inline"
           defaultSelectedKeys={["1"]}
           onClick={handleMenuClick}
-          items={generateMenuItems(router[0]?.children || [])}
+          items={generateMenuItems(router[1]?.children || [])}
         />
       </Sider>
       <Layout>
@@ -101,7 +93,7 @@ const App: React.FC = () => {
             borderRadius: borderRadiusLG,
           }}
         >
-          <Routes>{renderNestedRoutes(router)}</Routes>
+          <Routes>{renderNestedRoutes(router[1]?.children || [])}</Routes>
         </Content>
       </Layout>
     </Layout>
