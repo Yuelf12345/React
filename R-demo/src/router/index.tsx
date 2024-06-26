@@ -8,7 +8,7 @@ import {
 import { Navigate } from "react-router-dom";
 // 懒加载
 const lazyLoad = (comp: string) => {
-  const LazyComponent = lazy(() => import(`../views/${comp}`));
+  const LazyComponent = lazy(() => import(/* @vite-ignore */`../views/${comp}`));
   return (
     <Suspense fallback={<div>Loding...</div>}>
       <LazyComponent />
@@ -30,8 +30,13 @@ export interface RouteItem {
 
 const router: RouteItem[] = [
   {
-    title: "",
+    title: "Root Redirect",
     path: "/",
+    element: <Navigate to="/home" replace />
+  },
+  {
+    title: "",
+    path: "",
     element: <Layout />,
     children: [
       {
