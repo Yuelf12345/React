@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import type { FormProps, GetProp } from "antd";
+import { apiTableDate } from "../api";
 import {
   Space,
   Table,
@@ -18,40 +19,28 @@ interface DataType {
   address: string;
   tags: string[];
 }
-
-const data: DataType[] = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-    tags: ["nice", "developer"],
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
-    tags: ["cool", "teacher"],
-  },
-];
+const data: DataType[] = [];
 const plainOptions = ["nice", "developer", "cool", "teacher", "loser"];
-
-interface HomeProps {}
 
 interface FieldType extends DataType {}
 
-const Home: React.FC<HomeProps> = () => {
+const Home: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [dataSource, setDataSource] = useState(data);
+  const [dataSource, setDataSource] = useState<DataType[]>(data);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data }: { data: DataType[] } = await apiTableDate();
+        setDataSource(data || []);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   const handleDelete = (record: DataType) => {
     const newData = dataSource.filter((item) => item.key !== record.key);
     // 更新dataSource状态
@@ -62,36 +51,27 @@ const Home: React.FC<HomeProps> = () => {
     setOpen(true);
   };
 
-  // const handleOk: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
-  //   console.log('Failed:', errorInfo);
-  //   setConfirmLoading(true);
-  //   // setTimeout(() => {
-  //   //   setOpen(false);
-  //   //   setConfirmLoading(false);
-  //   // }, 2000);
-  // };
-
+  const [form] = Form.useForm();
   const handleOk = async () => {
-    return new Promise((resolve, reject) => {
-      setConfirmLoading(true);
-    });
-  }
-
+    try {
+      await form.validateFields();
+      console.log("表单验证通过");
+      // 获取表单数据
+      const newRecord = await form.getFieldsValue();
+      setDataSource([...dataSource, { ...newRecord }]);
+      setOpen(false);
+      form.resetFields();
+    } catch (error) {
+      console.log("表单验证失败", error);
+    } finally {
+      setConfirmLoading(false);
+    }
+  };
 
   const handleCancel = () => {
-    console.log("Clicked cancel button");
     setOpen(false);
   };
 
-  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    console.log("Success:", values);
-  };
-
-  const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
-    errorInfo
-  ) => {
-    console.log("Failed:", errorInfo);
-  };
   const onChange: GetProp<typeof Checkbox.Group, "onChange"> = (
     checkedValues
   ) => {
@@ -111,13 +91,12 @@ const Home: React.FC<HomeProps> = () => {
         onCancel={handleCancel}
       >
         <Form
-          name="basic"
+          form={form}
+          name="mainForm"
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
           style={{ maxWidth: 600 }}
           initialValues={{ remember: true }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
           <Form.Item<FieldType>
@@ -141,7 +120,7 @@ const Home: React.FC<HomeProps> = () => {
             name="age"
             rules={[{ required: true, message: "Please input your age!" }]}
           >
-            <InputNumber min={1} max={100} defaultValue={1} changeOnWheel />
+            <InputNumber min={1} max={100} changeOnWheel />
           </Form.Item>
           <Form.Item<FieldType>
             label="address"
