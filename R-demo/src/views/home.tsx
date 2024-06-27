@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import type { FormProps, GetProp } from "antd";
+
+import { useSelector } from "react-redux";
+
+import type { GetProp } from "antd";
 import { apiTableDate } from "../api";
 import {
   Space,
@@ -24,11 +27,16 @@ const plainOptions = ["nice", "developer", "cool", "teacher", "loser"];
 
 interface FieldType extends DataType {}
 
+interface RootState {
+  counter: {
+    count: number;
+  };
+}
 const Home: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [dataSource, setDataSource] = useState<DataType[]>(data);
-
+  const { count } = useSelector((store: RootState) => store.counter);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -80,6 +88,7 @@ const Home: React.FC = () => {
   return (
     <div>
       <h1>Home</h1>
+      {count}
       <Button type="primary" onClick={handleAdd}>
         新增
       </Button>
