@@ -22,7 +22,7 @@ const Login: React.FC = () => {
     const navigateTo = useNavigate()
     const { username, password, remember } = useSelector((state: any) => state.user)
     const dispatch = useDispatch()
-    const onFinish = (values: any) => {
+    const onFinish = (values: FieldType) => {
         dispatch(userLogin(values))
         navigateTo('/')
         localStorage.setItem('token', username)

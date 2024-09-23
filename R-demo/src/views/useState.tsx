@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+// 类式组件
+import { Component } from "react";
 
 interface StateInterface {
   count: number;
@@ -33,3 +34,19 @@ class State extends Component<StateProps, StateInterface> {
 }
 
 export default State;
+
+// 函数式组件
+// import React, { useState } from 'react';
+
+// const State: React.FC = () => {
+//   const [count, setCount] = useState(0);
+
+//   return (
+//     <div>
+//       <h1>Page2_1 - Counter: {count}</h1>
+//       <button onClick={() => setCount(count + 1)}>Increment</button>
+//     </div>
+//   );
+// };
+
+// export default State;

@@ -8,7 +8,9 @@ import {
 import { Navigate } from "react-router-dom";
 // 懒加载
 const lazyLoad = (comp: string) => {
-  const LazyComponent = lazy(() => import(/* @vite-ignore */`../views/${comp}`));
+  const LazyComponent = lazy(
+    () => import(/* @vite-ignore */ `../views/${comp}`)
+  );
   return (
     <Suspense fallback={<div>Loding...</div>}>
       <LazyComponent />
@@ -32,7 +34,7 @@ const router: RouteItem[] = [
   {
     title: "Root Redirect",
     path: "/",
-    element: <Navigate to="/home" replace />
+    element: <Navigate to="/home" replace />,
   },
   {
     title: "",
@@ -80,6 +82,30 @@ const router: RouteItem[] = [
             path: "/hooks/useReducter",
             icon: <FileOutlined />,
             element: lazyLoad("useReducter"),
+          },
+          {
+            title: "useLayoutEffect",
+            path: "/hooks/useLayoutEffect",
+            icon: <FileOutlined />,
+            element: lazyLoad("useLayoutEffect"),
+          },
+          {
+            title: "useCallback",
+            path: "/hooks/useCallback",
+            icon: <FileOutlined />,
+            element: lazyLoad("useCallback"),
+          },
+          {
+            title: "useMemo",
+            path: "/hooks/useMemo",
+            icon: <FileOutlined />,
+            element: lazyLoad("useMemo"),
+          },
+          {
+            title: "useImperativeHandle",
+            path: "/hooks/useImperativeHandle",
+            icon: <FileOutlined />,
+            element: lazyLoad("useImperativeHandle"),
           },
         ],
       },

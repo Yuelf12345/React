@@ -33,8 +33,8 @@ interface RootState {
   };
 }
 const Home: React.FC = () => {
-  const [open, setOpen] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const [dataSource, setDataSource] = useState<DataType[]>(data);
   const { count } = useSelector((store: RootState) => store.counter);
   useEffect(() => {
