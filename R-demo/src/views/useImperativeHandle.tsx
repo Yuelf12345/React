@@ -1,24 +1,58 @@
-import { forwardRef, useImperativeHandle, useRef } from "react";
+import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import { Input } from "antd";
 import type { InputRef } from "antd";
 
-const CustomInput = forwardRef((props, ref) => {
-  const inputRef = useRef<InputRef | null>(null);
-  useImperativeHandle(ref, () => ({
-    focus: () => {
-      inputRef.current!.focus();
-    },
-  }));
+type CustomInputProps = {
+  value?: string;
+  placeholder?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
+interface CustomInputHandle {
+  focus?: () => void;
+}
 
-  return <Input type="text" placeholder="请输入内容" ref={inputRef} />;
-});
+const CustomInput = forwardRef<CustomInputHandle, CustomInputProps>(
+  (props, ref) => {
+    console.log("props", props);
+    const inputRef = useRef<InputRef | null>(null);
+    useImperativeHandle(ref, () => ({
+      focus: () => {
+        inputRef.current!.focus();
+      },
+    }));
+
+    return (
+      <>
+        <Input
+          ref={inputRef}
+          type="text"
+          value={props.value}
+          placeholder={props.placeholder}
+          onChange={props.onChange}
+        />
+      </>
+    );
+  }
+);
 
 const ImperativeHandle: React.FC = () => {
   const inputRef = useRef<InputRef | null>(null);
+  const [value, setValue] = useState("初始值");
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
+  const handleFocus = () => {
+    inputRef.current!.focus();
+  };
   return (
     <div>
-      <CustomInput ref={inputRef} />
-      <button onClick={() => inputRef.current!.focus()}>聚焦</button>
+      <CustomInput
+        ref={inputRef}
+        value={value}
+        placeholder="请输入内容"
+        onChange={handleChange}
+      />
+      <button onClick={handleFocus}>聚焦</button>
     </div>
   );
 };
