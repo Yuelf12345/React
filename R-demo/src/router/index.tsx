@@ -107,6 +107,18 @@ const router: RouteItem[] = [
             icon: <FileOutlined />,
             element: lazyLoad("useImperativeHandle"),
           },
+          {
+            title: "useDeferredValue",
+            path: "/hooks/useDeferredValue",
+            icon: <FileOutlined />,
+            element: lazyLoad("useDeferredValue"),
+          },
+          {
+            title: "useRef",
+            path: "/hooks/useRef",
+            icon: <FileOutlined />,
+            element: lazyLoad("useRef"),
+          },
         ],
       },
       {
