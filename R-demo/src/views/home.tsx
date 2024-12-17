@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import type { GetProp } from "antd";
-import { apiTableDate } from "../api";
+import { apiTableDate } from "@/api";
 import {
   Space,
   Table,

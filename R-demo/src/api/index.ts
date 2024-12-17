@@ -1,4 +1,4 @@
-import service from "../utils/request.ts";
+import service from "@/utils/request.ts";
 export const apiLogin = (data: { username: string; password: string }) => {
   return service.request({
     url: "/login",

@@ -7,7 +7,7 @@ import {
   increment,
   decrement,
   incrementByAmount,
-} from "../store/features/counter";
+} from "@/store/features/counter";
 
 interface Page1Props {}
 

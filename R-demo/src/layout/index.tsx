@@ -4,7 +4,7 @@ import {
   MenuUnfoldOutlined
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
-import router from "../router"; // 引入路由配置
+import router from "@/router"; // 引入路由配置
 import { Routes, Route, useNavigate } from "react-router-dom";
 import style from "./index.module.scss";
 const { Header, Sider, Content } = Layout;

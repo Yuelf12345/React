@@ -9,7 +9,7 @@ import { Navigate } from "react-router-dom";
 // 懒加载
 const lazyLoad = (comp: string) => {
   const LazyComponent = lazy(
-    () => import(/* @vite-ignore */ `../views/${comp}`)
+    () => import(/* @vite-ignore */ `@/views/${comp}`)
   );
   return (
     <Suspense fallback={<div>Loding...</div>}>
@@ -18,7 +18,7 @@ const lazyLoad = (comp: string) => {
   );
 };
 
-const Layout = lazy(() => import("../layout/index"));
+const Layout = lazy(() => import("@/layout/index"));
 
 // 路由配置
 export interface RouteItem {
@@ -63,61 +63,61 @@ const router: RouteItem[] = [
             title: "useState",
             path: "/hooks/useState",
             icon: <FileOutlined />,
-            element: lazyLoad("useState"),
+            element: lazyLoad("Hooks/useState"),
           },
           {
             title: "useEffect",
             path: "/hooks/useEffect",
             icon: <FileOutlined />,
-            element: lazyLoad("useEffect"),
+            element: lazyLoad("Hooks/useEffect"),
           },
           {
             title: "useContext",
             path: "/hooks/useContext",
             icon: <FileOutlined />,
-            element: lazyLoad("useContext"),
+            element: lazyLoad("Hooks/useContext"),
           },
           {
             title: "useReducter",
             path: "/hooks/useReducter",
             icon: <FileOutlined />,
-            element: lazyLoad("useReducter"),
+            element: lazyLoad("Hooks/useReducter"),
           },
           {
             title: "useLayoutEffect",
             path: "/hooks/useLayoutEffect",
             icon: <FileOutlined />,
-            element: lazyLoad("useLayoutEffect"),
+            element: lazyLoad("Hooks/useLayoutEffect"),
           },
           {
             title: "useCallback",
             path: "/hooks/useCallback",
             icon: <FileOutlined />,
-            element: lazyLoad("useCallback"),
+            element: lazyLoad("Hooks/useCallback"),
           },
           {
             title: "useMemo",
             path: "/hooks/useMemo",
             icon: <FileOutlined />,
-            element: lazyLoad("useMemo"),
+            element: lazyLoad("Hooks/useMemo"),
           },
           {
             title: "useImperativeHandle",
             path: "/hooks/useImperativeHandle",
             icon: <FileOutlined />,
-            element: lazyLoad("useImperativeHandle"),
+            element: lazyLoad("Hooks/useImperativeHandle"),
           },
           {
             title: "useDeferredValue",
             path: "/hooks/useDeferredValue",
             icon: <FileOutlined />,
-            element: lazyLoad("useDeferredValue"),
+            element: lazyLoad("Hooks/useDeferredValue"),
           },
           {
             title: "useRef",
             path: "/hooks/useRef",
             icon: <FileOutlined />,
-            element: lazyLoad("useRef"),
+            element: lazyLoad("Hooks/useRef"),
           },
         ],
       },
