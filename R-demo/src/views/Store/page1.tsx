@@ -1,25 +1,21 @@
 import React, { useState } from "react";
 import { Button, InputNumber } from "antd";
 // 引入相关的hooks
-import { useSelector, useDispatch } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from '@/store';
 // 引入 counterSlice 中的 actions函数
 import {
   increment,
   decrement,
   incrementByAmount,
+  selectCounter
 } from "@/store/features/counter";
 
 interface Page1Props {}
-
-interface RootState {
-  counter: {
-    count: number;
-  };
-}
-
 const Page1: React.FC<Page1Props> = () => {
-  const dispatch = useDispatch();
-  const { count } = useSelector((store: RootState) => store.counter);
+  const { count } = useAppSelector(selectCounter);
+  const dispatch = useAppDispatch();
+
   const [step, setStep] = useState<number | null>(null);
 
   const handleStepChange = (val: number | null) => {

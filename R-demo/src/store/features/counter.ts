@@ -30,12 +30,15 @@ export const counterSlice = createSlice({
     incrementByAmount: (state, action) => {
       state.count += action.payload;
     },
+    doubleCount: (state) => {
+      state.count *= 2;
+    },
   },
 });
 
 // createSlice 会自动生成与我们编写的 reducer 函数同名的 action creator。
 // 导出actions函数
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export const { increment, decrement, incrementByAmount, doubleCount } = counterSlice.actions;
 
 export const selectCounter = (state: RootState) => state.counter;
 
