@@ -1,5 +1,8 @@
 // src/store/features/counterSlice.js
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from '@/store';
+
+const namespace = 'counter';
 
 const initialState = {
   count: 0,
@@ -8,7 +11,7 @@ const initialState = {
 // 创建一个 Slice
 export const counterSlice = createSlice({
   // 命名空间，name会作为action type的前缀
-  name: "counter",
+  name: namespace,
 
   // 初始化状态
   initialState,
@@ -33,6 +36,8 @@ export const counterSlice = createSlice({
 // createSlice 会自动生成与我们编写的 reducer 函数同名的 action creator。
 // 导出actions函数
 export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+
+export const selectCounter = (state: RootState) => state.counter;
 
 // 导出reducer，创建store
 export default counterSlice.reducer;

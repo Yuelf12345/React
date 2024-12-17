@@ -9,7 +9,7 @@ import { Navigate } from "react-router-dom";
 // 懒加载
 const lazyLoad = (comp: string) => {
   const LazyComponent = lazy(
-    () => import(/* @vite-ignore */ `@/views/${comp}`)
+    () => import(/* @vite-ignore */ `../views/${comp}`)
   );
   return (
     <Suspense fallback={<div>Loding...</div>}>
@@ -48,10 +48,24 @@ const router: RouteItem[] = [
         element: lazyLoad("home"),
       },
       {
-        title: "页面1",
-        path: "/page1",
+        title: "Store",
+        path: "/store",
         icon: <FileOutlined />,
-        element: lazyLoad("page1"),
+        element: <Navigate to="/Store/page1" />,
+        children: [
+          {
+            title: "page1",
+            path: "/store/page1",
+            icon: <FileOutlined />,
+            element: lazyLoad("Store/page1"),
+          },
+          {
+            title: "page2",
+            path: "/store/page2",
+            icon: <FileOutlined />,
+            element: lazyLoad("Store/page2"),
+          },
+        ],
       },
       {
         title: "Hooks",
