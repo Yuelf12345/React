@@ -2,6 +2,7 @@ import axios, {
   AxiosError,
   AxiosResponse,
   InternalAxiosRequestConfig,
+  CancelTokenSource,
 } from "axios";
 
 const baseURL = "http://localhost:3000";
@@ -37,16 +38,15 @@ service.interceptors.response.use(
     return response.data;
   },
   (error: AxiosError) => {
+    if (axios.isCancel(error)) {
+      console.log("Request canceled", error.message);
+    }
     //超出2xx范围的状态码都会触发该方法
     //对响应错误做点什么
     console.log(error, "response-error");
-
     const { response } = error;
-
     let message = "";
-
     const status = response?.status;
-
     switch (status) {
       case 401:
         message = "token失效,请重新登陆";
@@ -70,3 +70,19 @@ service.interceptors.response.use(
 );
 
 export default service;
+
+// 取消重复的上一次请求
+const cancelTokens: { [key: string]: CancelTokenSource } = {};
+export const createRequestWithCancelToken = (
+  config: InternalAxiosRequestConfig,
+  key = "default"
+) => {
+  if (cancelTokens[key]) {
+    cancelTokens[key].cancel("Request canceled");
+  }
+  cancelTokens[key] = axios.CancelToken.source();
+  return service({
+    ...config,
+    cancelToken: cancelTokens[key].token,
+  });
+};
