@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-import "../App.css";
+import '../../App.css'
 const ThemeContext = createContext<
   | { theme: string; setTheme: React.Dispatch<React.SetStateAction<string>> }
   | any
