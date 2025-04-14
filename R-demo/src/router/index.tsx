@@ -146,6 +146,12 @@ const router: RouteItem[] = [
             path: "/learn/className",
             icon: <FileOutlined />,
             element: lazyLoad("Learn/ClassName"),
+          },
+          {
+            title: "Game",
+            path: "/learn/Game",
+            icon: <FileOutlined />,
+            element: lazyLoad("Learn/Game"),
           }
         ]
       },
