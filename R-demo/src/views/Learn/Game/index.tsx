@@ -29,7 +29,7 @@ const Game = () => {
       nextSquares[i] = "O";
     }
     setSquares(nextSquares);
-    const winner = calculateWinner(squares);
+    const winner = calculateWinner(nextSquares);
     let status;
     if (winner) {
       status = "Winner: " + winner;
@@ -67,21 +67,21 @@ const Game = () => {
   return (
     <div>
       <div className="status">{status}</div>
-      <div className={Style["board-row"]}>
-        <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-        <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-        <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
-      </div>
-      <div className={Style["board-row"]}>
-        <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-        <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-        <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
-      </div>
-      <div className={Style["board-row"]}>
-        <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-        <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-        <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
-      </div>
+      {[0, 1, 2].map((i) => {
+        return (
+          <div className={Style["board-row"]} key={i}>
+            {[0, 1, 2].map((j) => {
+              return (
+                <Square
+                  value={squares[i * 3 + j]}
+                  onSquareClick={() => handleClick(i * 3 + j)}
+                  key={j}
+                />
+              );
+            })}
+          </div>
+        );
+      })}
     </div>
   );
 };
