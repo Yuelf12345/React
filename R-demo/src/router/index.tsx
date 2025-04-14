@@ -136,6 +136,20 @@ const router: RouteItem[] = [
         ],
       },
       {
+        title: "Learn",
+        path: "/learn",
+        icon: <FileOutlined />,
+        element: <Navigate to="/learn/className" />,
+        children: [
+          {
+            title: "className",
+            path: "/learn/className",
+            icon: <FileOutlined />,
+            element: lazyLoad("Learn/ClassName"),
+          }
+        ]
+      },
+      {
         title: "登录",
         path: "/login",
         icon: <LinkedinOutlined />,

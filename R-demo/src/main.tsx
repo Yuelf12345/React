@@ -4,7 +4,7 @@ import App from "./App";
 import "./index.css";
 
 // 全局样式
-import "@/assets/styles/global.scss";
+import "@/assets/styles/global.less";
 
 // 路由
 import { BrowserRouter } from "react-router-dom";
