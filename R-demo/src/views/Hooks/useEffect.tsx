@@ -28,6 +28,9 @@ const Effect: React.FC<EffectProps> = () => {
   useEffect(() => {
     console.log("count改变执行");
     setText('count改变执行')
+    return () => {
+      console.log("count 变化时执行清理");
+    }
   }, [count]);
   const incrementCount = (): void => {
     setCount(count + 1);
