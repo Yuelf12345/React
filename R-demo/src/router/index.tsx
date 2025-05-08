@@ -25,7 +25,7 @@ export interface RouteItem {
   title: string;
   path: string;
   element: JSX.Element;
-  icon?: any;
+  icon?: JSX.Element;
   hidden?: boolean;
   children?: RouteItem[];
 }
@@ -134,6 +134,20 @@ const router: RouteItem[] = [
             element: lazyLoad("Hooks/useRef"),
           },
         ],
+      },
+      {
+        title: "Router",
+        path: "/router",
+        icon: <FileOutlined />,
+        element: <Navigate to="/learn/className" />,
+        children:[
+          {
+            title: "useSearchParams",
+            path: "/router/useSearchParams",
+            icon: <FileOutlined />,
+            element: lazyLoad("Router/useSearchParams"),
+          }
+        ]
       },
       {
         title: "Learn",

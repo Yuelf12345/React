@@ -12,7 +12,7 @@ export interface RouteItem {
   title: string;
   path: string;
   element: JSX.Element;
-  icon?: any;
+  icon?: JSX.Element;
   hidden?: boolean;
   children?: RouteItem[];
 }
