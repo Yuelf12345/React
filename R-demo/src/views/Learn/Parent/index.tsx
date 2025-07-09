@@ -11,7 +11,9 @@ import { Button } from "antd";
 // 定义 Child 组件的 props 类型
 interface ChildProps {
   content: string;
-  onEvent: (data: any) => void; // 接收一个函数作为 props
+  onEvent: (data: {
+    time: number;
+  }) => void; // 接收一个函数作为 props
 }
 
 // 使用 forwardRef 将 Child 组件包装起来，以便父组件可以访问它的实例
@@ -40,18 +42,20 @@ const Child = forwardRef<{ event: () => void }, ChildProps>((props, ref) => {
 });
 
 const Parent = () => {
-  const ChildRef = useRef<any>(null);
+  const ChildRef = useRef<{ event: () => void }>(null);
 
   const [time, setTime] = useState<number>(Date.now());
 
   //   父掉子组件方法
   const handleClick = () => {
     console.log("Parent event");
-    ChildRef.current.event();
+    ChildRef.current?.event();
   };
 
   //   子掉父组件方法 传数据
-  const handleChildEvent = (data: any) => {
+  const handleChildEvent = (data: {
+    time: number;
+  }) => {
     console.log("Received data from child:", data);
     setTime(data.time);
   };
@@ -71,14 +75,22 @@ const Parent = () => {
 };
 
 // 父子组件eventBus通信
+interface EventData {
+  time: number;
+  content?: string; // 可选属性，用于parentEvent
+}
+type Events = {
+  childEvent: EventData;
+  parentEvent: { content: string };
+};
 import mitt from "mitt";
 // 创建事件总线实例
-const eventBus = mitt();
+const eventBus = mitt<Events>();
 const Child1 = () => {
   const [content, setContent] = useState<string>("Child content");
 
   useEffect(() => {
-    const handleChildEvent = (data: any) => {
+    const handleChildEvent = (data: Events['parentEvent']) => {
       console.log("Received data from child:", data);
       setContent(data.content);
     };
@@ -107,7 +119,7 @@ const Child1 = () => {
 const Parent1 = () => {
   const [time, setTime] = useState<number>(Date.now());
   useEffect(() => {
-    const handleChildEvent = (data: any) => {
+    const handleChildEvent = (data: Events['childEvent']) => {
       console.log("Received data from child:", data);
       setTime(data.time);
     };
