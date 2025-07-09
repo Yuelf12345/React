@@ -19,12 +19,13 @@ interface ChildProps {
 // 使用 forwardRef 将 Child 组件包装起来，以便父组件可以访问它的实例
 const Child = forwardRef<{ event: () => void }, ChildProps>((props, ref) => {
   const { content, onEvent } = props;
-
+  const [num, setNum] = useState(0);
   //   子组件通过 ref 暴露一个方法给父组件调用
   //   useImperativeHandle 允许你自定义暴露给父组件的实例值
   useImperativeHandle(ref, () => ({
     event: () => {
       console.log("Child event");
+      setNum(num + 1)
     },
   }));
 
@@ -37,6 +38,7 @@ const Child = forwardRef<{ event: () => void }, ChildProps>((props, ref) => {
       <h4>Child</h4>
       <Button onClick={sendData}>Child event</Button>
       <p>{content}</p>
+      Parent event:{num}
     </div>
   );
 });
