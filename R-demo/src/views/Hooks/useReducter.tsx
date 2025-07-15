@@ -1,6 +1,6 @@
 import React, { useState, useReducer } from "react";
 
-interface Page2Props {}
+interface Page2Props { }
 interface Task {
   id: number;
   text: string;
@@ -49,8 +49,11 @@ const Reducter: React.FC<Page2Props> = () => {
 };
 
 export default Reducter;
-
-const tasksReducer = (tasks: any, action: any) => {
+type Action =
+  | { type: "added"; id: number; text: string }
+  | { type: "changed"; task: Task }
+  | { type: "deleted"; id: number };
+const tasksReducer = (tasks: Task[], action: Action) => {
   switch (action.type) {
     case "added": {
       return [
@@ -63,7 +66,7 @@ const tasksReducer = (tasks: any, action: any) => {
       ];
     }
     case "changed": {
-      return tasks.map((t: any) => {
+      return tasks.map((t: Task) => {
         if (t.id === action.task.id) {
           return action.task;
         } else {
@@ -72,10 +75,10 @@ const tasksReducer = (tasks: any, action: any) => {
       });
     }
     case "deleted": {
-      return tasks.filter((t: any) => t.id !== action.id);
+      return tasks.filter((t: Task) => t.id !== action.id);
     }
     default: {
-      throw Error("Unknown action: " + action.type);
+      throw Error("Unknown action: " + (action as Action).type);
     }
   }
 };
@@ -117,7 +120,7 @@ const TaskList: React.FC<TaskListProps> = ({
 }) => {
   return (
     <ul>
-      {tasks.map((task: any) => (
+      {tasks.map((task: Task) => (
         <li key={task.id}>
           <Task
             task={task}

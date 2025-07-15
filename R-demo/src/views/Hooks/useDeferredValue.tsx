@@ -3,7 +3,7 @@ import { useState, useDeferredValue, memo } from "react";
 const SlowList = memo(function SlowList({ text }: { text: string }) {
   console.log("[ARTIFICIALLY SLOW] Rendering 250 <SlowItem />");
 
-  let items = [];
+  const items = [];
   for (let i = 0; i < 250; i++) {
     items.push(<SlowItem key={i} text={text} />);
   }
@@ -11,8 +11,10 @@ const SlowList = memo(function SlowList({ text }: { text: string }) {
 });
 
 function SlowItem({ text }: { text: string }) {
-  let startTime = performance.now();
-  while (performance.now() - startTime < 1) {}
+  const startTime = performance.now();
+  while (performance.now() - startTime < 1) {
+    // Artificially slow down this component to simulate a slow network connection
+  }
   return <li className="item">Text: {text}</li>;
 }
 

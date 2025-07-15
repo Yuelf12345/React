@@ -1,9 +1,11 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 import '../../App.css'
 const ThemeContext = createContext<
-  | { theme: string; setTheme: React.Dispatch<React.SetStateAction<string>> }
-  | any
->(null);
+  { theme: string; setTheme: React.Dispatch<React.SetStateAction<string>> }
+>({
+  theme: "light",
+  setTheme: () => { },
+});
 
 export default function Context() {
   const [theme, setTheme] = useState<string>("light");
@@ -66,12 +68,12 @@ function Panel({
   );
 }
 
-function Button({ children }: { children: React.ReactNode }) {
+function Button({ children }: { children: string }) {
   const { theme, setTheme } = useContext(ThemeContext);
   const className = "button-" + theme;
   return (
     <button onClick={() => setTheme(children)} className={className}>
-      {}
+      { }
       {children}
     </button>
   );
