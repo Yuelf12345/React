@@ -3,9 +3,10 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined
 } from "@ant-design/icons";
-import { Button, Layout, Menu, theme } from "antd";
+import { Button, Layout, Menu, theme, MenuProps } from "antd";
 import router from "@/router"; // 引入路由配置
 import { Routes, Route, useNavigate } from "react-router-dom";
+import { MenuInfo } from 'rc-menu/lib/interface';
 import style from "./index.module.less";
 const { Header, Sider, Content } = Layout;
 export interface RouteItem {
@@ -28,7 +29,7 @@ function renderNestedRoutes(routes: RouteItem[]): JSX.Element[] {
   });
 }
 
-function generateMenuItems(routes: RouteItem[]): any[] {
+function generateMenuItems(routes: RouteItem[]): MenuProps['items'] {
   // 注意这里的any类型可以根据实际情况细化
   return routes.map((route) => {
     const { path, icon, title } = route;
@@ -55,7 +56,7 @@ const App: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const handleMenuClick = (e: any) => {
+  const handleMenuClick = (e: MenuInfo) => {
     navigate(e.key);
   };
 
