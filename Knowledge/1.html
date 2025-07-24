@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>start</button>
+    <button>pause</button>
+</body>
+<script src="./1.js"></script>
+<script>
+
+    const tasks = []
+    for (let i = 0; i < 10; i++) {
+        const task = function () {
+            return new Promise((reslove) => {
+                setTimeout(() => {
+                    console.log(`我是第${i}个任务`)
+                    reslove(i)
+                }, 2000)
+            })
+        }
+        tasks.push(task)
+    }
+    const process = processTasks(tasks)
+    let btns = document.querySelectorAll('button');
+    btns[0].addEventListener('click', async function () {
+        const res = await process.start()
+        console.log('任务执行完成', res);
+
+    })
+    btns[1].addEventListener('click', function () {
+
+        process.pause()
+    })
+</script>
+
+</html>
