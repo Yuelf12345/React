@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="file" id="file">
+    <button>按钮</button>
+    <script>
+        function getElement(selector) {
+            const dom = document.querySelector(selector);
+            const proxy = new Proxy(dom, {
+                get(target, prop, reactive) {
+                    if (!prop.startsWith('wait')) {
+                        return Reflect.get(target, prop, reactive)
+                    }
+                    return new Promise(reslove => {
+                        dom.addEventListener(prop.slice(4).toLowerCase(), () => {
+                            // 模拟异步
+                            setTimeout(() => {
+                                reslove(true)
+                            }, 4000)
+                        }, { once: true })
+                    })
+                }
+            })
+            return proxy;
+        }
+        (
+            async () => {
+                let state = false
+                const file = document.querySelector('input[type="file"]');
+                const btn = getElement('button');
+                while (1) {
+                    const permission = await btn.waitClick;
+                    console.log(permission);
+                    if (permission) {
+                        file.click()
+                    }
+                }
+            }
+        )()
+    </script>
+</body>
+
+
+</html>
