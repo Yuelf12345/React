@@ -8,35 +8,44 @@
 </head>
 
 <body>
-    <button>start</button>
-    <button>pause</button>
-</body>
-<script src="./1.js"></script>
-<script>
-
-    const tasks = []
-    for (let i = 0; i < 10; i++) {
-        const task = function () {
-            return new Promise((reslove) => {
-                setTimeout(() => {
-                    console.log(`我是第${i}个任务`)
-                    reslove(i)
-                }, 2000)
+    <input type="file" id="file">
+    <button>按钮</button>
+    <script>
+        function getElement(selector) {
+            const dom = document.querySelector(selector);
+            const proxy = new Proxy(dom, {
+                get(target, prop, reactive) {
+                    if (!prop.startsWith('wait')) {
+                        return Reflect.get(target, prop, reactive)
+                    }
+                    return new Promise(reslove => {
+                        dom.addEventListener(prop.slice(4).toLowerCase(), () => {
+                            // 模拟异步
+                            setTimeout(() => {
+                                reslove(true)
+                            }, 4000)
+                        }, { once: true })
+                    })
+                }
             })
+            return proxy;
         }
-        tasks.push(task)
-    }
-    const process = processTasks(tasks)
-    let btns = document.querySelectorAll('button');
-    btns[0].addEventListener('click', async function () {
-        const res = await process.start()
-        console.log('任务执行完成', res);
+        (
+            async () => {
+                let state = false
+                const file = document.querySelector('input[type="file"]');
+                const btn = getElement('button');
+                while (1) {
+                    const permission = await btn.waitClick;
+                    console.log(permission);
+                    if (permission) {
+                        file.click()
+                    }
+                }
+            }
+        )()
+    </script>
+</body>
 
-    })
-    btns[1].addEventListener('click', function () {
-
-        process.pause()
-    })
-</script>
 
 </html>
