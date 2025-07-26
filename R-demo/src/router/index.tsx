@@ -6,13 +6,27 @@ import {
   LinkedinOutlined,
 } from "@ant-design/icons";
 import { Navigate } from "react-router-dom";
+
+const modules = import.meta.glob('../views/**/*.{tsx,jsx,ts,js}');
+
 // 懒加载
 const lazyLoad = (comp: string) => {
-  const LazyComponent = lazy(
-    () => import(/* @vite-ignore */ `../views/${comp}`)
-  );
+  // 确保路径格式正确
+  const modulePath = `../views/${comp}.tsx`;
+  const modulePathAlt = `../views/${comp}/index.tsx`;
+
+  let loader: () => Promise<{ default: React.ComponentType<any> }>;
+  if (modules[modulePath]) {
+    loader = modules[modulePath] as () => Promise<{ default: React.ComponentType<any> }>;
+  } else if (modules[modulePathAlt]) {
+    loader = modules[modulePathAlt] as () => Promise<{ default: React.ComponentType<any> }>;
+  } else {
+    // 默认加载 404 组件
+    loader = modules['../views/404.tsx'] as () => Promise<{ default: React.ComponentType<any> }>;
+  }
+  const LazyComponent = lazy(loader);
   return (
-    <Suspense fallback={<div>Loding...</div>}>
+    <Suspense fallback={<div>Loading...</div>}>
       <LazyComponent />
     </Suspense>
   );
@@ -140,7 +154,7 @@ const router: RouteItem[] = [
         path: "/router",
         icon: <FileOutlined />,
         element: <Navigate to="/learn/className" />,
-        children:[
+        children: [
           {
             title: "useSearchParams",
             path: "/router/useSearchParams",

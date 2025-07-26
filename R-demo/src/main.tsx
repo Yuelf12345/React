@@ -13,6 +13,13 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "@/store";
 
+
+import small from "@/assets/small.png";
+import big from "@/assets/big.png";
+
+console.log(small);
+console.log(big);
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
@@ -22,3 +29,4 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     </Provider>
   </React.StrictMode>
 );
+
