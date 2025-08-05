@@ -5,6 +5,21 @@ class Tree {
     this.right = null;
   }
 
+  // 广度优先
+  levelOrder() {
+    let res = [];
+    let queue = [this];
+    while (queue.length) {
+      let node = queue.shift(); // 取出队列的第一个节点
+      if(node){
+        res.push(node.value);
+        if(node.left) queue.push(node.left);
+        if(node.right) queue.push(node.right);
+      }
+    }
+    return res;
+  }
+
   // 前序遍历
   preOrder() {
     let res = [];
@@ -71,6 +86,7 @@ tree.left.left = new Tree(4);
 tree.left.right = new Tree(5);
 tree.right.left = new Tree(6);
 console.log(tree);
+console.log(tree.levelOrder());
 console.log(tree.preOrder());
 console.log(tree.inOrder());
 console.log(tree.postOrder());
