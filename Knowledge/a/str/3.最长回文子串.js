@@ -1,24 +1,25 @@
 function longCycleStr(str) {
   let maxLen = 0;
   let maxStr = "";
-  const hander = (str, l, r) => {
-    while (l >= 0 && r < str.length && str[l] === str[r]) {
-      l--;
-      r++;
+  const hander = (str, left, righr) => {
+    while (left >= 0 && righr < str.length && str[left] === str[righr]) {
+      left--;
+      righr++;
     }
-    return {
-      len: r - l - 1,
-      s: str.slice(l + 1, r),
-    };
-  };
-  for (let i = 0; i < str.length; i++) {
-    const { len: len1, s: s1 } = hander(str, i, i);
-    const { len: len2, s: s2 } = hander(str, i, i + 1);
-    maxLen = Math.max(maxLen, Math.max(len1, len2));
-    let s = s1.length > s2.length ? s1 : s2;
-    maxStr = maxStr.length > s.length ? maxStr : s;
+    return str.slice(left + 1, righr);
   }
-  return { maxLen, maxStr };
+  for (let i = 0; i < str.length; i++) {
+    const len1 = hander(str, i, i)
+    const len2 = hander(str, i, i + 1)
+    if(len1.length > maxLen || len2.length > maxLen){
+      maxLen = Math.max(len1.length, len2.length)
+      maxStr = len1.length > len2.length ? len1 : len2
+    }
+  }
+  return {
+    maxLen,
+    maxStr
+  }
 }
 
 console.log(longCycleStr("abcbcdcbd")); // bcdcb 5
