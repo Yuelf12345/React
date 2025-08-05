@@ -11,10 +11,10 @@ class Tree {
     let queue = [this];
     while (queue.length) {
       let node = queue.shift(); // 取出队列的第一个节点
-      if(node){
+      if (node) {
         res.push(node.value);
-        if(node.left) queue.push(node.left);
-        if(node.right) queue.push(node.right);
+        if (node.left) queue.push(node.left);
+        if (node.right) queue.push(node.right);
       }
     }
     return res;
@@ -86,8 +86,8 @@ tree.left.left = new Tree(4);
 tree.left.right = new Tree(5);
 tree.right.left = new Tree(6);
 console.log(tree);
-console.log(tree.levelOrder());
-console.log(tree.preOrder());
-console.log(tree.inOrder());
-console.log(tree.postOrder());
+console.log(tree.levelOrder()); // [ 1, 2, 3, 4, 5, 6 ]
+console.log(tree.preOrder());   // [ 1, 2, 4, 5, 3, 6 ]
+console.log(tree.inOrder());    // [ 4, 2, 5, 1, 6, 3 ]
+console.log(tree.postOrder());  //[ 4, 5, 2, 6, 3, 1 ]
 console.log(tree.reverse());
