@@ -355,3 +355,112 @@
 // }
 
 // console.log(merge([4, 1, 3, 1, 5, 2]));
+
+// function Parent(){
+//   this.name = 'zhangsan'
+//   this.sayName = function(){
+//     console.log(this.name, this);
+//   }
+// }
+// Parent.prototype.age = 18
+
+// function Child(name){
+//   this.name = name
+//   this.gender = '男'
+// }
+// Child.prototype = new Parent()
+// Child.prototype.constructor = Child
+// const c1 = new Child('lisi')
+// c1.sayName()
+// console.log(c1.age);
+
+// function Parent(name){
+//   this.name = name
+//   this.sayName = function(){
+//     console.log(this.name, this);
+//   }
+// }
+// Parent.prototype.age = 18
+
+// function Child(name){
+//   Parent.call(this,name)
+//   this.gender = '男'
+// }
+// const c1 = new Child('lisi')
+// c1.sayName()
+// console.log(c1.age);
+
+// function Parent(name){
+// this.name = name
+// this.sayName = function(){
+//   console.log(this.name,this);
+// }
+// }
+// Parent.prototype.age = 18
+// function Child(name){
+//   Parent.call(this,name)
+//   this.gender = 'nan'
+// }
+// Child.prototype = new Parent()
+// Child.prototype.constructor = Child
+// const c1 = new Child('lisi')
+// c1.sayName()
+// console.log(c1.age);
+
+// const parent = {
+//   name:'zhangsan',
+//   sayName:function(){
+//     console.log(this.name,this);
+//   }
+// }
+
+// function createObj(obj,props={}){
+//   function Parent(){}
+//   Parent.prototype = obj
+//   const p = new Parent()
+//   Object(p,props)
+//   return p
+// }
+// const c1 = createObj(parent);
+// c1.sayName()
+
+// const parent = {
+//   name:'zhangsan',
+//   sayName:function(){
+//     console.log(this.name,this);
+//   }
+// }
+
+// function createObj(obj,props={}){
+//   const cloneObj = Object.create(obj)
+//   Object(cloneObj,props)
+//   cloneObj.age = 18
+//   return cloneObj
+// }
+// const c1 = createObj(parent);
+// c1.sayName()
+// console.log(c1.age);
+
+/* 回溯算法框架 */
+// state 表示问题的当前状态，choices 表示当前状态下可以做出的选择：
+function backtrack(state, choices, res) {
+    // 判断是否为解
+    if (isSolution(state)) {
+        // 记录解
+        recordSolution(state, res);
+        // 不再继续搜索
+        return;
+    }
+    // 遍历所有选择
+    for (let choice of choices) {
+        // 剪枝：判断选择是否合法
+        if (isValid(state, choice)) {
+            // 尝试：做出选择，更新状态
+            makeChoice(state, choice);
+            backtrack(state, choices, res);
+            // 回退：撤销选择，恢复到之前的状态
+            undoChoice(state, choice);
+        }
+    }
+}
+
