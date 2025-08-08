@@ -13,8 +13,19 @@ function climbingStairsBacktrack(n) {
     }
     return dp[n - 1]
 }
+// 空间复杂度从 O(n) --> O(1)
+function climbingStairsBacktrack1(n) {
+    if (n <= 2) return n;
+    let a = 1, b = 2
+    for (let i = 2; i < n; i++) {
+        const temp = b
+        b = a + b
+        a = temp
+    }
+    return b
+}
 
-console.log(climbingStairsBacktrack(3)); // 3
-console.log(climbingStairsBacktrack(4)); // 5
-console.log(climbingStairsBacktrack(5)); // 8
-console.log(climbingStairsBacktrack(10)); // 89
+console.log(climbingStairsBacktrack1(3)); // 3
+console.log(climbingStairsBacktrack1(4)); // 5
+console.log(climbingStairsBacktrack1(5)); // 8
+console.log(climbingStairsBacktrack1(10)); // 89
