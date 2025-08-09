@@ -32,3 +32,17 @@ function knapsackDFS(weight, value, cap) {
 }
 
 console.log(knapsackDFS([1, 2, 3, 4, 5], [50, 120, 150, 210, 240], 5)); // 50+120+120 = 290
+
+// 空间优化
+function knapsackDFS1(weight, value, cap) {
+    if (!cap || !weight || !value) return 0
+    const dp = new Array(cap + 1).fill(0)
+    for (let i = 1; i <= weight.length; i++) {
+        for (let j = weight[i - 1]; j <= cap; j++) {
+            dp[j] = Math.max(dp[j], dp[j - weight[i - 1]] + value[i - 1]);
+        }
+    }
+    console.log(dp);
+    return dp[cap]
+}
+console.log(knapsackDFS1([1, 2, 3, 4, 5], [50, 120, 150, 210, 240], 5)); // 50+120+120 = 290
