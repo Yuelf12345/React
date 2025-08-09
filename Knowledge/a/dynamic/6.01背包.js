@@ -22,18 +22,19 @@ function max(value, weight, maxWeight) {
   // 状态转移方程
   for (let i = 1; i < value.length; i++) {
     for (let j = 0; j <= maxWeight; j++) {
-      dp[i][j] = Math.max(
-        dp[i - 1][j],
-        // 容量不够时，不放入物品，取出上一次相同重量的值
+      // 容量不够时，不放入物品，取出上一次相同重量的值
+      if (j < weight[i]) {
+        dp[i][j] = dp[i - 1][j]
+      } else {
         // 容量够时，放入当前物品【i】，剩余容量为【[j - weight[i]]】,取出上一次相同剩余容量的值
-        // Math.max 保证得到放入物品【i】时和不放入物品【i】时的最大值
-        j < weight[i] ? dp[i - 1][j] : dp[i - 1][j - weight[i]] + value[i]
-      );
+        // // Math.max 保证得到放入物品【i】时和不放入物品【i】时的最大值
+        dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);
+      }
     }
   }
   console.log(dp);
   return dp[value.length - 1][maxWeight];
 }
 
-const res = max([5, 10, 3, 6, 3], [2, 5, 1, 4, 3], 6);
+const res = max([5, 10, 3, 6, 3], [2, 5, 1, 4, 3], 6); // 10 + 3 = 13
 console.log(res);
