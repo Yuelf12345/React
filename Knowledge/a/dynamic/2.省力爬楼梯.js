@@ -14,11 +14,20 @@ function minCost(cost) {
   let len = cost.length
   if (len <= 1) return 0
   if (len === 2) return Math.min(cost[0], cost[1])
-  const dp = [cost[0], Math.min(cost[0], cost[1])]
+  // const dp = [cost[0], Math.min(cost[0], cost[1])]
+  // for (let i = 2; i < len; i++) {
+  //   dp[i] = Math.min(dp[i - 1], dp[i - 2]) + cost[i]
+  // }
+  // return dp[len - 1]
+  /**空间优化 */
+  let a = cost[0], b = Math.min(cost[0], cost[1])
   for (let i = 2; i < len; i++) {
-    dp[i] = Math.min(dp[i - 1], dp[i - 2]) + cost[i]
+    let temp = Math.min(a, b) + cost[i]
+    a = b
+    b = temp
   }
-  return dp[len - 1]
+  return b
+
 }
 console.log(minCost([1, 99, 1, 1])); // 2
 console.log(minCost([1, 99, 1, 1, 1, 99, 1, 1, 99, 1])); // 6
