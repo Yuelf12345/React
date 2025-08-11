@@ -22,7 +22,7 @@ function knapsackDFS(weight, value, cap) {
             if (j < weight[i]) {
                 dp[i][j] = dp[i - 1][j]
             } else {
-                dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - weight[i]] + value[i]);
+                dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - weight[i]] + value[i]); // value[i] 当前价值
             }
         }
     }
