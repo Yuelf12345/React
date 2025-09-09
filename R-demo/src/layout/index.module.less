@@ -1,8 +1,35 @@
+@import "./mixins.less";
+
 .layout {
-    height: 100vh;
-    width: 100vw;
-    background-color: aquamarine;
+  min-height: 100vh;
+  
+  // 使用卡片样式混入
+  .card-style();
+  
+  // 使用响应式混入
+  .respond-to(desktop) {
+    .mixin-content() {
+      padding: 24px;
+    }
+  }
+  
+  .respond-to(mobile) {
+    .mixin-content() {
+      padding: 12px;
+    }
+  }
 }
-.content{
-    
+
+.demo-logo-vertical {
+  // 使用尺寸混入
+  .size(64px);
+  
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+  border-radius: 4px;
+}
+
+// 使用重置列表混入
+.menu-list {
+  .reset-list();
 }

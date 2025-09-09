@@ -1,0 +1,50 @@
+.activeMixins() {
+    background: #000;
+    text-decoration: none;
+    color: #fff;
+}
+
+.navItem {
+    position: relative;
+    background-position: right -300px;
+    float: left;
+    height: 70px;
+    font-size: 14px;
+}
+
+.navItem :hover {
+    .activeMixins()
+}
+
+.navItem span {
+    float: left;
+    height: 70px;
+    font-size: 14px;
+}
+
+.navItem a {
+    padding: 0 19px;
+    text-align: center;
+    line-height: 70px;
+    color: #ccc;
+    float: left;
+    height: 70px;
+    font-size: 14px;
+}
+
+.active {
+    .activeMixins()
+}
+
+.cor {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 64px;
+    width: 12px;
+    height: 7px;
+    margin-left: -6px;
+    overflow: hidden;
+    background-position: -226px 0;
+    background-image: url(../../assets/topbar.png);
+}

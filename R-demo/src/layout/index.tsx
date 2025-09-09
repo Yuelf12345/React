@@ -63,13 +63,14 @@ const App: React.FC = () => {
   return (
     <Layout className={style.layout}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="demo-logo-vertical" />
+        <div className={style["demo-logo-vertical"]} />
         <Menu
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["1"]}
           onClick={handleMenuClick}
           items={generateMenuItems(router[1]?.children || [])}
+          className={style["menu-list"]}
         />
       </Sider>
       <Layout>
